@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Main | FHIR demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+        /* Add a gray background color and some padding to the footer */
+        
+        footer {
+            background-color: #51eff5;
+            padding: 25px;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <script>
+        /*  add the script in head for now because do not need document onload  */
+        function bttnEngineering_show() {
+            modal = $("#modalWindow").modal('show');
+        }
+        function bttnEngineering_hide() {
+            modal = $("#modalWindow").modal('hide');
+        }
+    </script>
+</head>
+
+<body>
+    <header id="masthead">
+        <div class="container">
+            <nav>
+            </nav>
+        </div>
+    </header>
+
+    <div id="main-container" class="container">
+        <section class="main-section">
+            <h1>FHIR Demo</h1>
+
+            <h3>
+                <p>This demo talks to on-line HAPI FHIR server. </p>
+            </h3>
+            <br/>
+            <div class="modal fade" id="modalWindow" role="dialog">
+                <div class="modal-dialog modal-sm vertical-align-center">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Notice</h4>
+                    </div>
+                    <div class="modal-body">
+                        update: 02/01/2025 page is being updated
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default" onclick="bttnEngineering_hide()">Close</button>
+                    </div>
+                  </div>
+                </div>
+            </div>           
+            <div>
+                <a href="/geturl" class="bttn_click"><br/>Get FHIR url </a>
+            </div>
+            <div id="spacer">
+            </div>
+            <div>
+                <a href="/getbundle" class="bttn_click"><br/>Get Bundle </a>
+            </div>
+        </section>
+
+        <!--
+        <section class="sidebar">
+        </section>
+        -->
+    </div>
+
+    <footer>
+        <div class="container">
+            Copyright &copy; 2025 Rich Budek
+        </div>
+    </footer>
+</body>
+
+</html>
