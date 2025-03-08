@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Main | FHIR demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+        /* Add a gray background color and some padding to the footer */
+        
+        footer {
+            background-color: #51eff5;
+            padding: 25px;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <script>
+        /*  add the script in head for now because do not need document onload  */
+        function bttnHomeClick() {
+            console.log("Home button clicked.")
+            location.href = "/";
+        }
+
+        function createTable(arrayData, tableId) {
+            let table = $('<table id="' + tableId + '"></table>');
+            let thead = $('<thead></thead>');
+            let tbody = $('<tbody></tbody>');
+
+            if (arrayData.length > 0) {
+                let headers = Object.keys(arrayData[0]);
+                let headerRow = $('<tr></tr>');
+                $.each(headers, function(index, header) {
+                headerRow.append('<th>' + header + '</th>');
+                });
+                thead.append(headerRow);
+
+                $.each(arrayData, function(index, rowData) {
+                let dataRow = $('<tr></tr>');
+                $.each(headers, function(index, header) {
+                    dataRow.append('<td>' + rowData[header] + '</td>');
+                });
+                tbody.append(dataRow);
+                });
+            }
+
+            table.append(thead);
+            table.append(tbody);
+
+            return table;
+            }
+
+
+            function createTable2(arrayData, tableId) {
+            let table = $('<table id="' + tableId + '"></table>');
+            let thead = $('<thead></thead>');
+            let tbody = $('<tbody></tbody>');
+
+            if (arrayData.length > 0) {
+                let headers = Object.keys(arrayData[0]);
+                let headerRow = $('<tr></tr>');
+                $.each(headers, function(index, header) {
+                headerRow.append('<th>' + header + '</th>');
+                });
+                thead.append(headerRow);
+
+                $.each(arrayData, function(index, rowData) {
+                let dataRow = $('<tr></tr>');
+                $.each(headers, function(index, header) {
+                    dataRow.append('<td>' + rowData[header] + '</td>');
+                });
+                tbody.append(dataRow);
+                });
+            }
+
+            table.append(thead);
+            table.append(tbody);
+
+            return table;
+            }
+
+
+        function getBundle() {
+            fetch("/getbundle")
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(json)
+
+                    //table of data
+                    let elem_table = createTable(json, 'FHIR_table');
+                    //$('#table_div').append(elem_table)
+
+
+                    //create string and send to the orig json section
+                    $('#orig_json').empty();
+                    var orig_head = $('<h5></h5>');
+                    orig_head.text("JSON returned from back end: ");
+                    var elem_br_1 = $('<br />');
+                    $('#orig_json').append(orig_head);
+                    $('#orig_json').append(elem_br_1);
+
+                    var elem_h5_1 = $('<h5></h5>');
+                    data_str = JSON.stringify(json);
+                    elem_h5_1.text(data_str);
+                    $('#orig_json').append(elem_h5_1);
+
+                });
+        }
+
+        $(document).ready(function() {
+            console.log("Bundle.html document is ready");
+            getBundle();
+        });
+    </script>
+</head>
+
+<body>
+    <header id="masthead">
+        <div class="container">
+            <nav>
+            </nav>
+        </div>
+    </header>
+
+    <div id="main-container" class="container">
+        <section class="main-section">
+            <div>
+                <h1>FHIR Demo</h1>
+
+                <h3>
+                    <p>This is the bundle read from the HAPI server<br/>
+                      </p>
+                </h3>    
+            </div>
+            <div id="table_div"> 
+
+            </div>
+            <div id="orig_json">
+
+            </div>
+            <br/>
+            <div class="bttn_click" onclick="bttnHomeClick()">
+                <h3 class="bttn_click bttn_text">Back</h3>
+            </div>
+            <div id="spacer">
+            </div>
+        </section>
+
+        <!--
+        <section class="sidebar">
+        </section>
+        -->
+    </div>
+
+    <footer>
+        <div class="container">
+            Copyright &copy; 2025 Rich Budek
+        </div>
+    </footer>
+</body>
+
+</html>

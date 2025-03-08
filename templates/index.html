@@ -26,12 +26,107 @@
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
     <script>
         /*  add the script in head for now because do not need document onload  */
-        function bttnEngineering_show() {
+        function bttnStatus_show() {
             modal = $("#modalWindow").modal('show');
         }
-        function bttnEngineering_hide() {
+
+        function bttnStatus_hide() {
             modal = $("#modalWindow").modal('hide');
         }
+
+        function bttnAboutClick() {
+            console.log("About button clicked.")
+            location.href = "/about";
+        }
+
+        function bttnHomeClick() {
+            console.log("Home button clicked.")
+            location.href = "/";
+        }
+
+        function bttnStatusClick() {
+            console.log("Status button clicked.")
+            bttnStatus_show()
+            getStatus();
+        }
+
+        function bttnGetFHIRurl() {
+            console.log("Get FHIR url button clicks.");
+            updateURLdiv("... reading from backend ...");
+            setTimeout(()=> {
+                //3 second delay
+                fetch("/geturl")
+                .then((response) => response.text())
+                .then((text) => {
+                    console.log(text);
+                    updateURLdiv(text);
+                });                
+            }, 2000);
+        }
+
+        function getStatus() {
+            fetch("/getstatus")
+                .then((response) => response.json())
+                .then((json) => {
+                    console.log(typeof(json));
+                    console.log(json);
+                    let status_disp = json.status;
+                    let server_obj = JSON.parse(json.server_obj);
+                    console.log(typeof(server_obj));
+                    $('#status_body').empty()
+                    var elem_h3 = $('<h3></h3>');
+                    var outputText = "Status : " + status_disp;
+                    elem_h3.text(outputText);
+                    var elem_br = $('<br />');
+
+                    $('#status_body').append(elem_h3);
+                    //$('#status_body').append(elem_br);
+
+                    var elem_h5 = $('<h5></h5>');
+                    server_obj_str = JSON.stringify(server_obj, null, 2)
+                    elem_h5.text(server_obj_str.slice(0,1000));
+                    var status_box = $('<div>');
+                    status_box.attr("id", "status_box");
+                    $(status_box).append(elem_h5);
+                    $(status_box).addClass("status_box_cl");
+    
+                    //$('#status_body').append(elem_br);
+                    $('#status_body').append(status_box);
+                });
+        }
+
+        function getBundle() {
+            fetch("/getbundle")
+                .then((response) => response.json())
+                .then((json) => console.log(json));
+        }
+
+        function getBundleClicked(){
+            console.log("clicked the button");
+            //getBundle();
+            location.href = "/bundle";
+        }
+
+        function clearURLdiv(){
+            $('#FHIR_url').empty()
+        }
+
+        function updateURLdiv(urlText){
+            clearURLdiv();
+            var elem_h3 = $('<h3></h3>');
+            var outputText = "FHIR server located at: " 
+            if (urlText=="") {
+                outputText = "\n ";
+            } else {
+                outputText = outputText + urlText
+            };
+            elem_h3.text(outputText);
+            $('#FHIR_url').append(elem_h3)
+        }
+        $(document).ready(function() {
+            console.log("document is ready");
+            updateURLdiv("");
+        });
     </script>
 </head>
 
@@ -48,7 +143,7 @@
             <h1>FHIR Demo</h1>
 
             <h3>
-                <p>This demo talks to on-line HAPI FHIR server. </p>
+                <p>This demo talks to an on-line HAPI FHIR server. </p>
             </h3>
             <br/>
             <div class="modal fade" id="modalWindow" role="dialog">
@@ -56,24 +151,33 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Notice</h4>
+                      <h4 class="modal-title">Status of FHIR Server</h4>
                     </div>
-                    <div class="modal-body">
-                        update: 02/01/2025 page is being updated
+                    <div class="modal-body" id="status_body">
+                        ... loading status JSON from server
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" class="btn btn-default" onclick="bttnEngineering_hide()">Close</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default" onclick="bttnStatus_hide()">Close</button>
                     </div>
                   </div>
                 </div>
-            </div>           
-            <div>
-                <a href="/geturl" class="bttn_click"><br/>Get FHIR url </a>
+            </div>   
+            <div id="FHIR_url">
+
+            </div>        
+            <div class="bttn_click" onclick="bttnAboutClick()">
+                <h3 class="bttn_click bttn_text">About</h3>
+            </div>
+            <div class="bttn_click" onclick="bttnGetFHIRurl()">
+                <h3 class="bttn_click bttn_text">Get FHIR url </h3>
+            </div>
+            <div class="bttn_click" onclick="bttnStatusClick()">
+                <h3 class="bttn_click bttn_text">Status</h3>
             </div>
             <div id="spacer">
             </div>
-            <div>
-                <a href="/getbundle" class="bttn_click"><br/>Get Bundle </a>
+            <div class="bttn_click" onclick="getBundleClicked()">
+                <h3 class="bttn_click bttn_text">Get Bundle</h3>
             </div>
         </section>
 

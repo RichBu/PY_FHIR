@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Main | FHIR demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+        /* Add a gray background color and some padding to the footer */
+        
+        footer {
+            background-color: #51eff5;
+            padding: 25px;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <script>
+        /*  add the script in head for now because do not need document onload  */
+        function bttnHomeClick() {
+            console.log("Home button clicked.")
+            location.href = "/";
+        }
+    </script>
+</head>
+
+<body>
+    <header id="masthead">
+        <div class="container">
+            <nav>
+            </nav>
+        </div>
+    </header>
+
+    <div id="main-container" class="container">
+        <section class="main-section">
+            <h1>FHIR Demo</h1>
+
+            <h3>
+                <p>FHIR are the newest records used for transferring medical records. 
+                    FHIR = Fast Healthcare Interoperability Resources. They were created 
+                    by HL7 and are made for RESTful API calls. <br/><br/>
+                    For all the good that FHIR brings, it also brings up several problems. 
+                    Some of these are that all key fields are NOT required to be present, 
+                    it is extensible which allows vendors to add fields, and lastly it must 
+                    be canonical.<br/><br/>
+                    FHIR.org has mounted a server that is available on-line and it purposefully 
+                    attempts to break your record handling. This demo calls that server and 
+                    demonstrates that with proper error handling, you can avoid crashing.<br/><br/>
+                    Technologies used:<br/>
+                    - Python language<br/>
+                    - Flash web server<br/>
+                    - Simple HTML pages<br/>
+                    - API calls<br/>
+                    - FHIR server calls<br/>
+                    - FHIR record handling<br/>
+                    - FHIR error handling<br/>
+                  </p>
+            </h3>
+            <br/>
+            <div class="bttn_click" onclick="bttnHomeClick()">
+                <h3 class="bttn_click bttn_text">Back</h3>
+            </div>
+            <div id="spacer">
+            </div>
+        </section>
+
+        <!--
+        <section class="sidebar">
+        </section>
+        -->
+    </div>
+
+    <footer>
+        <div class="container">
+            Copyright &copy; 2025 Rich Budek
+        </div>
+    </footer>
+</body>
+
+</html>
