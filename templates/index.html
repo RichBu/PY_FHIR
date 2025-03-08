@@ -68,11 +68,8 @@
             fetch("/getstatus")
                 .then((response) => response.json())
                 .then((json) => {
-                    console.log(typeof(json));
-                    console.log(json);
                     let status_disp = json.status;
                     let server_obj = JSON.parse(json.server_obj);
-                    console.log(typeof(server_obj));
                     $('#status_body').empty()
                     var elem_h3 = $('<h3></h3>');
                     var outputText = "Status : " + status_disp;
@@ -165,19 +162,31 @@
             <div id="FHIR_url">
 
             </div>        
-            <div class="bttn_click" onclick="bttnAboutClick()">
+            <div class="bttn_click" title="About this app" onclick="bttnAboutClick()">
+                <!--
                 <h3 class="bttn_click bttn_text">About</h3>
+                -->
+                <img src="static/images/info.png" width="50px" height="50px" style="margin-top:25px;" >
             </div>
-            <div class="bttn_click" onclick="bttnGetFHIRurl()">
+            <div class="bttn_click" title="Display the FHIR server's url" onclick="bttnGetFHIRurl()">
+                <!--
                 <h3 class="bttn_click bttn_text">Get FHIR url </h3>
+                -->
+                <img src="static/images/link.png" width="50px" height="50px" style="margin-top:25px;" >
             </div>
-            <div class="bttn_click" onclick="bttnStatusClick()">
+            <div class="bttn_click" title="Server's status" onclick="bttnStatusClick()">
+                <!--
                 <h3 class="bttn_click bttn_text">Status</h3>
+                -->
+                <img src="static/images/circle.png" width="50px" height="50px" style="margin-top:25px;" >
             </div>
             <div id="spacer">
             </div>
-            <div class="bttn_click" onclick="getBundleClicked()">
+            <div class="bttn_click" title="Get an FHIR bundle" onclick="getBundleClicked()">
+                <!--
                 <h3 class="bttn_click bttn_text">Get Bundle</h3>
+                -->
+                <img src="static/images/bundle.png" width="50px" height="50px" style="margin-top:25px;" >
             </div>
         </section>
 

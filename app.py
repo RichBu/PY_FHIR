@@ -77,12 +77,7 @@ def get_status():
         out_status = "up & running"
         response = requests.get(full_url)
         response.raise_for_status()
-        print( response )
-        print("response status")
-        print(response.status_code)
         data = response.json()
-        #print("response data :")
-        #print(data)
         server_obj = json.dumps(data)
     except requests.exceptions.RequestException as e:
         print(f"Request error: {e}")
@@ -107,11 +102,6 @@ def get_bundle():
     except Exception as e:
         print(f"An error occurred: {e}")
 
-    print( response )
-    print("print the url")
-    print(response.url)
-    print("response status")
-    print(response.status_code)
     data = response.json()
 
     # Load the bundle data from a JSON file
@@ -122,8 +112,6 @@ def get_bundle():
     fhir_bundle = json.loads(response.text)
     #print (fhir_bundle)
     resourceType = fhir_bundle["resourceType"]
-    print ("resource is -- ")
-    print(resourceType)
 
     # key text is causing problems with bundles
     '''
@@ -136,13 +124,6 @@ def get_bundle():
     fr_entries = fhir_bundle["entry"]
     # if use for loop then the item number in the array is the same as the key
     for i,rec in enumerate(fr_entries):
-        print("rec # ", i)
-        #print(rec)
-        #print("rec:")
-        #pretty_print(rec)
-        #print(rec.items())
-        print("\n")
-
         fr_id = ""
         fr_name_rec = ""
         fr_name_family = ""
@@ -214,18 +195,11 @@ def get_bundle():
                 fr_name_given = ""
                 pass
 
-        print(fr_id, " ", fr_resource_type, " ", fr_name_given, " ", fr_name_family)
-        print("\n")
         out_rec_obj = BundleShortDesc(fr_id, fr_resource_type, fr_name_given, fr_name_family)
         out_rec = json.dumps(out_rec_obj, default=BundleShortDec_serializer)
 
-        print("output rec:")
-        pretty_print(out_rec)
         out_array.append(out_rec)
     pass
-    print("full array")
-    pretty_print(out_array)
-    print(json.dumps(out_array))
     #bundle = Bundle.parse_obj(fhir_bundle)
 
     #return fhir_bundle

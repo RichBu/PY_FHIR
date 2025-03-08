@@ -57,47 +57,54 @@
             table.append(tbody);
 
             return table;
-            }
+            }  // create table
 
 
-            function createTable2(arrayData, tableId) {
+        function createTable2(arrayData, tableId) {
             let table = $('<table id="' + tableId + '"></table>');
             let thead = $('<thead></thead>');
             let tbody = $('<tbody></tbody>');
 
+            let headerRow = $('<tr></tr>');
+            headerRow.append('<th style="padding-right:10px;">' + 'id' + '</th>');
+            thead.append(headerRow);
+            headerRow.append('<th style="padding-right:10px;">' + 'Resource Type' + '</th>');
+            thead.append(headerRow);
+            headerRow.append('<th style="padding-right:10px;">' + 'First Name' + '</th>');
+            thead.append(headerRow);
+            headerRow.append('<th style="padding-right:10px;">' + 'Last Name' + '</th>');
+            thead.append(headerRow);
+            
             if (arrayData.length > 0) {
-                let headers = Object.keys(arrayData[0]);
-                let headerRow = $('<tr></tr>');
-                $.each(headers, function(index, header) {
-                headerRow.append('<th>' + header + '</th>');
-                });
-                thead.append(headerRow);
-
                 $.each(arrayData, function(index, rowData) {
-                let dataRow = $('<tr></tr>');
-                $.each(headers, function(index, header) {
-                    dataRow.append('<td>' + rowData[header] + '</td>');
+                    let dataRow = $('<tr></tr>');
+                    rowDataObj = JSON.parse(rowData)
+
+                    dataRow.append('<td style="padding-right:10px;">' + rowDataObj.id + '</td>');
+                    dataRow.append('<td style="padding-right:10px;">' + rowDataObj.resource_type + '</td>');
+                    dataRow.append('<td style="padding-right:10px;">' + rowDataObj.name_given + '</td>');
+                    dataRow.append('<td style="padding-right:10px;">' + rowDataObj.name_family + '</td>');
+                    tbody.append(dataRow);
                 });
-                tbody.append(dataRow);
-                });
-            }
+            };
 
             table.append(thead);
             table.append(tbody);
 
             return table;
-            }
+            }  // create table2
 
 
         function getBundle() {
             fetch("/getbundle")
                 .then((response) => response.json())
                 .then((json) => {
-                    console.log(json)
 
                     //table of data
-                    let elem_table = createTable(json, 'FHIR_table');
-                    //$('#table_div').append(elem_table)
+                    let elem_table = createTable2(json, 'FHIR_table');
+                    $('#table_div').append(elem_table)
+                    $('#table_div').append("<br/>");
+                    $('#table_div').append("<br/>");
 
 
                     //create string and send to the orig json section
