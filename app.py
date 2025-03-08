@@ -1,10 +1,10 @@
 from flask import Flask, render_template
-from fhir.resources.bundle import Bundle
+#from fhir.resources.bundle import Bundle
 #from fhir.resources.patient import Patient
 #from fhir.resources.observation import Observation
 #from fhirpy import FHIRClient
 #import fhir_pyrate.pyrate as pyrate
-import pandas as pd
+#import pandas as pd
 import json
 import requests
 import config
